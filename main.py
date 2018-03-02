@@ -1,18 +1,10 @@
 import sys, getopt,re,subprocess,os
 opts, args = getopt.getopt(sys.argv[1:], "hs:v:")
-mp4=""
-srt=""
+name = sys.argv[1]
+mp4= name + ".mp4"
+srt= name + ".srt"
 objpath=""
-for op, value in opts:
-    if op == "-s":
-        srt = value
-        print(srt)
-    elif op == "-v":
-        mp4 = value
-        print(mp4)
-    elif op == "-h":
-        print('help')
-        sys.exit()
+
 def videotime(srttime):
     tmp=srttime.split('-->')
     tmp1=tmp[0].split('.')
@@ -23,13 +15,11 @@ def videotime(srttime):
     timeend=int(tmp2[0])*60*60+int(tmp2[1])*60+int(tmp2[2])
     return int((timeend-timestart)/2+timestart);
 objpath=os.path.dirname(os.path.realpath(mp4))
-isExists=os.path.exists(objpath+'/md')
+isExists=os.path.exists(objpath+'/out'+name)
 if not isExists:
-    os.makedirs(objpath+'/md')
-    os.makedirs(objpath+'/md/img')
-# else:
-#     print('md目录已存在')
-#     sys.exit()
+    os.makedirs(objpath+'/out'+name)
+    os.makedirs(objpath+'/out'+name+'/img')
+
 savestr='';
 file = open(srt)
 tmptime=""
@@ -43,7 +33,7 @@ for line in file:
         if line.find('[*]')>-1:
             #print(tmptime)
             tmps=videotime(tmptime)
-            cmd = 'ffmpeg -i '+mp4+' -y -f image2 -ss '+str(tmps)+' -t 0.001 -s 1920x1080 '+objpath+'/md/img/'+str(tmps)+'.jpg'
+            cmd = 'ffmpeg -i '+mp4+' -y -f image2 -ss '+str(tmps)+' -t 0.001 -s 960x540 '+objpath+'/out'+name+'/img/'+str(tmps)+'.jpg'
             subprocess.call(cmd.encode(sys.getfilesystemencoding()), shell=True)
             #print(line)
             #line=line.replace("[*]", "");
@@ -87,7 +77,7 @@ for index in range(len(tmphtmls)):
 htmlstr+='</body>'+"\n"
 htmlstr+='</html>'+"\n"
 file.close()
-file = open(objpath+'/md/srt.html','w')
+file = open(objpath+'/'+name+'/srt.html','w')
 file.write(htmlstr)
 file.close()
 # 运行命令
