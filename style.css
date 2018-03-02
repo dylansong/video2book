@@ -1,0 +1,32 @@
+
+body{
+    width: 960px; margin-left: auto; margin-right: auto;
+}
+
+P{
+    font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1.58;
+    letter-spacing: -.003em;
+    margin-top:29px;
+    color:#2b2624;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+
+img{
+    background: #eee;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    height: auto;
+    border:8px solid white;
+    -moz-box-shadow:1px 2px 18px #858585; -webkit-box-shadow:1px 2px 18px #858585; box-shadow:1px 2px 18px #858585;
+}
