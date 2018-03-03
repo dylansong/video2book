@@ -1,7 +1,7 @@
 import sys, getopt,re,subprocess,os
 opts, args = getopt.getopt(sys.argv[1:], "hs:v:")
 name = sys.argv[1]
-mp4= name + ".mp4"
+mp4= name + ".mp3"
 srt= name + ".srt"
 objpath=""
 
@@ -15,10 +15,10 @@ def videotime(srttime):
     timeend=int(tmp2[0])*60*60+int(tmp2[1])*60+int(tmp2[2])
     return int((timeend-timestart)/2+timestart);
 objpath=os.path.dirname(os.path.realpath(mp4))
-isExists=os.path.exists(objpath+'/out'+name)
+isExists=os.path.exists(objpath+'/out/'+name)
 if not isExists:
-    os.makedirs(objpath+'/out'+name)
-    os.makedirs(objpath+'/out'+name+'/img')
+    os.makedirs(objpath+'/out/'+name)
+    os.makedirs(objpath+'/out/'+name+'/img')
 
 savestr='';
 file = open(srt)
@@ -77,7 +77,7 @@ for index in range(len(tmphtmls)):
 htmlstr+='</body>'+"\n"
 htmlstr+='</html>'+"\n"
 file.close()
-file = open(objpath+'/'+name+'/srt.html','w')
+file = open(objpath+'/out/'+name+'/srt.html','w')
 file.write(htmlstr)
 file.close()
 # 运行命令
